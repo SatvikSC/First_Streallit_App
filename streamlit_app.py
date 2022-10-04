@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import pandas
 
 st.title('My parents New Healty Diner')
 
@@ -32,5 +33,5 @@ st.text(fruityvice_response.json()) # Writting data to the screen
 
 # Converting Json Response into Panda Json_normalized form 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# Converting Json_normalized form into Dataframe
-streamlit.dataframe(fruityvice_normalized)
+# Displaying Json_normalized form as a Dataframe
+st.dataframe(fruityvice_normalized)
