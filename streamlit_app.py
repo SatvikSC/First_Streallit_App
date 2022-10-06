@@ -54,12 +54,18 @@ st.stop()
 
 #=============================================
 # Snowflake Connection
+st.header("The Fruit Load List Contains:")
+# Snowflake-related function
+def get_fruit_load_list():
+  with mycnx.cursor() as my_cur:
+    my_cur.execute("select * from fruit_load_list")
+    # my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+    return my_cur.fetchall()
+
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("select * from fruit_load_list")
-# my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
-my_data_rows = my_cur.fetchall()
-st.header("The Fruit Load List Contains:")
+
+
 st.dataframe(my_data_rows)
 add_my_fruit = st.text_input('What fruit would you like to add?')
 if (add_my_fruit):
