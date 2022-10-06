@@ -26,6 +26,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 # Display the table on the page.
 st.dataframe(fruits_to_show)
 #=============================================
+# Create a function to convert the json version response into normalizing form and return it back
 def get_fruitvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
   # st.text(fruityvice_response)
@@ -50,7 +51,7 @@ except URLError as e:
   st.error()
 
 # Adding a stop point
-st.stop()
+# st.stop()
 
 #=============================================
 # Snowflake Connection
@@ -63,13 +64,20 @@ def get_fruit_load_list():
     # my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
     return my_cur.fetchall()
 
+# Add a Button to a load the fruit
 if st.button('Get Fruit Load List'):
   my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
   my_data_rows = get_fruit_load_list()
   st.dataframe(my_data_rows)
 
-st.dataframe(my_data_rows)
+def insert_row_snowflake(new_fruit):
+  with mycnx.cursor() as my_cur:
+    my_cur.execute("insert into fruit_load_list values('" + new_fruit + "')")
+    return 'Thanks for adding ' + new_fruit
+
+# Allow the user to add a fruit to the list
 add_my_fruit = st.text_input('What fruit would you like to add?')
-if (add_my_fruit):
-  my_cur.execute("insert into fruit_load_list values('" + add_my_fruit + "')")
-  st.text('Thanks for adding ' + add_my_fruit)
+if st.button('Add a Fruit to the List'):
+  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+  back_from_function = insert_row_snowflake()
+  st.text(back_from_function)
