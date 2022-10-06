@@ -31,7 +31,7 @@ def get_fruitvice_data(this_fruit_choice):
   # st.text(fruityvice_response)
   # st.text(fruityvice_response.json()) # Writting data to the screen
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-  retutn fruityvice_normalized
+  return fruityvice_normalized
     
 # Getting reponse from fruityvice.com
 st.header("Fruityvice Fruit Advice!")
