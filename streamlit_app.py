@@ -27,7 +27,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 st.dataframe(fruits_to_show)
 #=============================================
 # Create a function to convert the json version response into normalizing form and return it back
-def get_fruitvice_data(this_fruit_choice):
+def get_fruitvice_choice(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)
   # st.text(fruityvice_response)
   # st.text(fruityvice_response.json()) # Writting data to the screen
