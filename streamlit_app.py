@@ -44,7 +44,7 @@ try:
   if not fruit_choice:
     st.error("Please Select a fruit to get information")
   else:
-    back_from_function = get_fruitvice_choice(fruityvice_normalized)
+    back_from_function = get_fruitvice_choice(fruit_choice)
     st.dataframe(back_from_function)
 
 except URLError as e:
